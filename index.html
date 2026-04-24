@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jenny Docong Portfolio</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<style>
+:root {
+    --bg: #fdfafc;
+    --primary: #f3dce6;
+    --secondary: #e7dff5;
+    --accent: #d6c3e0;
+    --text: #3a3a3a;
+    --subtext: #8a8a8a;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    background: linear-gradient(180deg, #fdfafc, #f7f3f9);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px 25px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    display: flex;
+    gap: 15px;
+    z-index: 1000;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text);
+    font-size: 0.9rem;
+}
+
+/* HERO */
+.hero {
+    text-align: center;
+    padding: 6rem 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle at top left, rgba(243, 220, 230, 0.35), transparent 60%);
+    top: -40px;
+    left: -40px;
+    filter: blur(1px);
+}
+
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    background: radial-gradient(circle at bottom right, rgba(214, 195, 224, 0.28), transparent 55%);
+    bottom: -45px;
+    right: -40px;
+    filter: blur(1px);
+}
+
+.profile {
+    width: 120px;
+    border-radius: 50%;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.hero h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+}
+
+.hero p {
+    color: var(--subtext);
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 22px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
+    background: transparent;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* SECTIONS */
+section {
+    padding: 5rem 12%;
+}
+
+/* HEADER */
+.section-header {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+.section-number {
+    color: var(--accent);
+}
+
+.section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--primary), transparent);
+}
+
+/* CARDS */
+.about-card,
+.project-card,
+.contact-form-card,
+.tech-item {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 18px;
+    padding: 1.75rem;
+    transition: 0.3s;
+}
+
+.about-card h3 {
+    margin-bottom: 0.85rem;
+    line-height: 1.3;
+}
+
+.about-card p {
+    line-height: 1.65;
+}
+
+.about-card p + p {
+    margin-top: 0.85rem;
+}
+
+.about-card:hover,
+.project-card:hover,
+.tech-item:hover {
+    transform: translateY(-6px);
+}
+
+/* GRID */
+.about-grid,
+.projects,
+.tech-grid {
+    display: grid;
+    gap: 1.3rem;
+}
+
+.about-grid { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.projects { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.tech-grid { grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); }
+
+.project-card img {
+    max-width: 180px;
+    margin: 0 auto 1rem;
+    display: block;
+    border-radius: 10px;
+}
+
+/* CONTACT */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    padding: 0.9rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+}
+
+.contact-form button {
+    border-radius: 999px;
+    padding: 0.9rem;
+    border: none;
+    background: var(--primary);
+    cursor: pointer;
+}
+
+/* FOOTER */
+.site-footer {
+    text-align: center;
+    padding: 2rem 10%;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    color: var(--text);
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.footer-icons a {
+    font-size: 1.75rem;
+    text-decoration: none;
+    color: var(--text);
+    transition: color 0.2s ease;
+}
+
+.footer-icons a:hover,
+.footer-icons a:focus {
+    color: #ff8fab;
+}
+
+.site-footer p {
+    margin: 0;
+    color: rgba(75,75,75,0.85);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 900px) {
+    section {
+        padding: 4rem 6%;
+    }
+
+    nav {
+        left: 50%;
+        transform: translateX(-50%);
+        width: calc(100% - 30px);
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 12px 14px;
+    }
+
+    nav a {
+        font-size: 0.85rem;
+    }
+
+    .hero {
+        padding: 4rem 1rem;
+    }
+
+    .hero {
+        padding: 4rem 1rem;
+    }
+
+    .about-grid {
+        gap: 1.25rem;
+    }
+
+    .project-card img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .contact-form button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+    section {
+        padding: 3rem 5%;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p,
+    .section-number,
+    .site-footer p {
+        font-size: 0.95rem;
+    }
+
+    .about-grid,
+    .projects,
+    .tech-grid {
+        gap: 0.9rem;
+    }
+
+    .footer-icons {
+        gap: 1rem;
+    }
+}
+
+/* SPLIT TEXT */
+.split span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px);
+}
+</style>
+</head>
+
+<body>
+<nav>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#projects">Projects</a>
+<a href="#skills">Skills</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="home">
+    <img src="AYDI.jpg" class="profile">
+    <h2 class="split">Jenny  Docong</h2>
+    <p id="typing"></p>
+    <p>Specializing in Software Development</p>
+    <a href="https://github.com/jenid14" class="btn">GitHub</a>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+<div class="section-header">
+<span class="section-number">01.</span>ABOUT_ME<div class="section-line"></div>
+</div>
+
+<div class="about-grid">
+
+<div class="about-card">
+<h3>Professional Summary</h3>
+<p>I am Jenny Daiz Docong, a Computer Engineering student passionate about building modern, user-friendly systems. I combine low-level logic with creativity to create digital solutions that are both reliable and intuitive.</p>
+<p>I focus on bridging hardware fundamentals with software development, using tools like C++, HTML, CSS, and JavaScript to turn complex ideas into functional websites. I also work with platforms like Supabase and Firebase, and use GitHub to maintain an organized and efficient workflow.</p>
+</div>
+
+<div class="about-card">
+<h3>Academic Background</h3>
+<p><strong>Bachelor of Science in Computer Engineering</strong><br>Eastern Samar State University</p>
+<p><strong>Computer Systems Servicing</strong><br>Pedro E. Candido Memorial National High School | 2017-2023</p>
+<p><strong>San Miguel Elementary School</strong><br>San Miguel Hernani Eastern Samar | 2011-2017</p>
+</div>
+
+<div class="about-card">
+<h3>Career Goals</h3>
+<p>My goal is to become a professional software developer who builds impactful applications across the full-stack lifecycle. I am especially interested in clean architecture, product-driven development, and using modern tools to create experiences that solve real user problems and grow with future needs.</p>
+</div>
+
+</div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+<div class="section-header">
+<span class="section-number">02.</span>TECH_STACK<div class="section-line"></div>
+</div>
+
+<div class="tech-grid">
+<div class="tech-item">HTML</div>
+<div class="tech-item">JavaScript</div>
+<div class="tech-item">React</div>
+<div class="tech-item">Node.js</div>
+<div class="tech-item">Express</div>
+<div class="tech-item">MySQL</div>
+<div class="tech-item">PostgreSQL</div>
+<div class="tech-item">Firebase</div>
+<div class="tech-item">Supabase</div>
+<div class="tech-item">GitHub</div>
+<div class="tech-item">Figma</div>
+<div class="tech-item">Netlify</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+<div class="section-header">
+<span class="section-number">03.</span>FEATURED_PROJECTS<div class="section-line"></div>
+</div>
+
+<div class="projects">
+
+<div class="project-card" onclick="window.open('https://essumarketplace-1.onrender.com/')">
+<img src="ESSU.jpg">
+<h3>ESSU Marketplace</h3>
+<p>The ESSU Marketplace is a specialized campus facility and service hub...</p>
+</div>
+
+<div class="project-card" onclick="window.open('https://sweets-recipes.netlify.app')">
+<img src="baking.jpg">
+<h3>Jenny’s Baking Recipes</h3>
+<p>Jenny’s Baking Recipes is a cozy and inspiring website...</p>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+<div class="section-header">
+<span class="section-number">04.</span>CONNECT_WITH_ME<div class="section-line"></div>
+</div>
+
+<div class="contact-form-card">
+<form class="contact-form" onsubmit="event.preventDefault(); alert('Thank you! Your message has been sent.'); this.reset();">
+<input type="text" placeholder="Your Name" required>
+<input type="email" placeholder="Your Email" required>
+<textarea placeholder="Your Message" required></textarea>
+<button type="submit">Send Message</button>
+</form>
+</div>
+</section>
+
+<footer class="site-footer">
+    <div class="footer-icons">
+        <a href="tel:09150213664" aria-label="Call Jenny" title="Call">📞</a>
+        <a href="mailto:jennydaizdocong@email.com" aria-label="Email Jenny" title="Email">✉️</a>
+        <a href="https://www.facebook.com/jennydaizdocong" aria-label="Facebook Jenny" title="Facebook" target="_blank" rel="noopener">📘</a>
+    </div>
+    <p>© 2026 Jenny Daiz Docong. All rights reserved.</p>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// SPLIT TEXT
+function splitText(el){
+let text = el.innerText;
+el.innerHTML="";
+text.split("").forEach(char=>{
+let span=document.createElement("span");
+span.innerText=char;
+el.appendChild(span);
+});
+}
+splitText(document.querySelector(".split"));
+
+// HERO ANIMATION
+gsap.to(".split span", {
+y:0,
+opacity:1,
+stagger:0.03,
+duration:1,
+ease:"power4.out"
+});
+
+// SCROLL ANIMATION
+gsap.utils.toArray(".about-card, .project-card, .tech-item").forEach(el=>{
+gsap.from(el,{
+scrollTrigger:{trigger:el,start:"top 85%"},
+opacity:0,
+y:40,
+duration:0.8
+});
+});
+
+// TYPING
+const text = "Incoming 4th Year Computer Engineering Student";
+let i=0;
+function typing(){
+if(i<text.length){
+document.getElementById("typing").innerHTML += text.charAt(i);
+i++;
+setTimeout(typing,30);
+}}
+typing();
+</script>
+
+</body>
+</html>
